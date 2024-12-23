@@ -9,5 +9,4 @@
     <ItemGroup>
         <ProjectReference Include="..\..\..\Kernel\Kernel\Kernel.csproj" />
     </ItemGroup>
-
 </Project>
