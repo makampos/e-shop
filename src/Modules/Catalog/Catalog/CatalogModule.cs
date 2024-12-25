@@ -1,9 +1,8 @@
-
-using Kernel.Data;
-using Kernel.Data.Seed;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Kernel.Data.Interceptors;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Catalog;
 
@@ -16,11 +15,23 @@ public static class CatalogModule
         // Api endpoints services
 
         // Application Use Case services
+        services.AddMediatR(config =>
+        {
+            config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
+        });
 
         // Data - Infrastructure services
 
         var connectionString = configuration.GetConnectionString("Database");
-        services.AddDbContext<CatalogDbContext>(options => options.UseNpgsql(connectionString));
+
+        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
+        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+
+        services.AddDbContext<CatalogDbContext>((sp, options) =>
+        {
+            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+            options.UseNpgsql(connectionString);
+        });
 
         services.AddScoped<IDataSeeder, CatalogDataSeeder>();
 

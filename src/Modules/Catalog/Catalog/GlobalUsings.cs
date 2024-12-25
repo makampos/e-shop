@@ -7,3 +7,4 @@ global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Catalog.Data;
 global using Catalog.Data.Seed;
 global using Kernel.Data.Seed;
+global using Kernel.Data;
