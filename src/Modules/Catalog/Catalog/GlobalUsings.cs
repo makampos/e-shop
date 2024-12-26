@@ -8,4 +8,7 @@ global using Catalog.Data;
 global using Catalog.Data.Seed;
 global using Kernel.Data.Seed;
 global using Kernel.Data;
+global using Catalog.Products.Dtos;
+global using Kernel.CQRS;
+global using Mapster;
 global using MediatR;
