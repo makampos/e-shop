@@ -8,3 +8,4 @@ global using Catalog.Data;
 global using Catalog.Data.Seed;
 global using Kernel.Data.Seed;
 global using Kernel.Data;
+global using MediatR;
