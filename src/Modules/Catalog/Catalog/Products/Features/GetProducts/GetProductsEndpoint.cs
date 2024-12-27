@@ -1,6 +1,6 @@
 namespace Catalog.Products.Features.GetProducts;
 
-public record GetProductsResponse(IEnumerable<ProductDto> Product);
+public record GetProductsResponse(IEnumerable<ProductDto> Products);
 
 public class GetProductsEndpoint : ICarterModule
 {
