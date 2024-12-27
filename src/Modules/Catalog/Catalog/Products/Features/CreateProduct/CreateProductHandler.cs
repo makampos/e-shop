@@ -25,7 +25,7 @@ public class CreateProductHandler(CatalogDbContext dbContext) : ICommandHandler<
             name: productDto.Name,
             category: productDto.Category,
             description: productDto.Description,
-            imageFile: productDto.ImageUrl,
+            imageFile: productDto.ImageFile,
             price: productDto.Price);
 
         return product;
