@@ -1,3 +1,4 @@
+using Kernel.Behaviours;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +19,10 @@ public static class CatalogModule
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
+            config.AddOpenBehavior(typeof(ValidationBehaviour<,>));
         });
+
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         // Data - Infrastructure services
 
