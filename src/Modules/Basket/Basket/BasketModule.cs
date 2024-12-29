@@ -1,4 +1,6 @@
+using Kernel.Data.Interceptors;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,10 +10,16 @@ public static class BasketModule
 {
     public static IServiceCollection AddBasketModule(this IServiceCollection services, IConfiguration configuration)
     {
-        // services
-        //     .AddApplicationServices()
-        //     .AddInfrastructureService(configuration)
-        //     .AddApiServices(configuration);
+        var connectionString = configuration.GetConnectionString("Database");
+
+        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
+        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+
+        services.AddDbContext<BasketDbContext>((sp, options) =>
+        {
+            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+            options.UseNpgsql(connectionString);
+        });
 
         return services;
     }
@@ -19,10 +27,8 @@ public static class BasketModule
     public static IApplicationBuilder UseBasketModule(this IApplicationBuilder app)
     {
         // Configure the HTTP request pipeline
-        // app
-        //     .AddApplicationService()
-        //     .AddInfrastructureService()
-        //     .AddApiServices();
+
+        app.UseMigration<BasketDbContext>();
 
         return app;
     }
