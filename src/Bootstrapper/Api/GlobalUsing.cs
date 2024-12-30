@@ -5,3 +5,4 @@ global using Carter;
 global using Kernel.Extensions;
 global using Kernel.Exceptions.Handlers;
 global using Serilog;
+global using FluentValidation;
