@@ -2,6 +2,9 @@
   eshopdb:
     image: postgres:latest
 
+  distributedcache:
+    image: redis:latest
+
   seq:
     image: datalust/seq:latest
 
