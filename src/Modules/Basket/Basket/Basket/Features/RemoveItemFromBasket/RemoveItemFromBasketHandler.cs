@@ -3,7 +3,7 @@ namespace Basket.Basket.Features.RemoveItemFromBasket;
 public record RemoveItemFromBasketCommand(string UserName, Guid ProductId)
     : ICommand<RemoveItemFromBasketResult>;
 
-public record RemoveItemFromBasketResult(bool IsSuccess);
+public record RemoveItemFromBasketResult(Guid Id);
 
 public class RemoveItemFromBasketCommandValidator : AbstractValidator<RemoveItemFromBasketCommand>
 {
@@ -33,6 +33,6 @@ public class RemoveItemFromBasketHandler(BasketDbContext dbContext) : ICommandHa
 
         await dbContext.SaveChangesAsync(cancellationToken);
 
-        return new RemoveItemFromBasketResult(true);
+        return new RemoveItemFromBasketResult(shoppingCart.Id);
     }
 }

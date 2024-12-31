@@ -13,12 +13,6 @@ public class ShoppingCartItem : Entity<Guid>
     public decimal Price { get; private set; } = default!;
     public string ProductName { get; private set; } = default!;
 
-    public ShoppingCartItem()
-    {
-
-    }
-
-    [JsonConstructor]
     internal ShoppingCartItem(Guid shoppingCartId, Guid productId, int quantity, string color, decimal price,
         string productName)
     {

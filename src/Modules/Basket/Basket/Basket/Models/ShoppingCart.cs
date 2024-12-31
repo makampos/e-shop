@@ -20,6 +20,7 @@ public class ShoppingCart : Aggregate<Guid>
         return shoppingCart;
     }
 
+    // TODO: Ensure 'Product' exists in catalog?
     public void AddItem(Guid productId, int quantity, string color, decimal price, string productName)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
