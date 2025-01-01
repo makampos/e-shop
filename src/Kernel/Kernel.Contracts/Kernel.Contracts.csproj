@@ -7,8 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Kernel\Kernel.Contracts\Kernel.Contracts.csproj" />
-        <ProjectReference Include="..\..\..\Kernel\Kernel\Kernel.csproj" />
-        <ProjectReference Include="..\Catalog.Contracts\Catalog.Contracts.csproj" />
+      <PackageReference Include="MediatR" Version="12.4.1" />
     </ItemGroup>
+
 </Project>

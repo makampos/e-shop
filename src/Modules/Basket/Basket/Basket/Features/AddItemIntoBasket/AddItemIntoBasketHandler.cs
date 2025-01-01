@@ -1,5 +1,8 @@
+using Catalog.Contracts.Products.Features.GetProductById;
+
 namespace Basket.Basket.Features.AddItemIntoBasket;
 
+// TODO: Refactor the command and not pass produceName and price, this has being fetched from catalog module through handler
 public record AddItemIntoBasketCommand(string UserName, ShoppingCartItemDto ShoppingCartItem)
     : ICommand<AddItemIntoBasketResult>;
 
@@ -21,7 +24,7 @@ public class AddItemIntoBasketCommandValidator : AbstractValidator<AddItemIntoBa
     }
 }
 
-public class AddItemIntoBasketHandler(IBasketRepository basketRepository)
+internal class AddItemIntoBasketHandler(IBasketRepository basketRepository, ISender sender)
     : ICommandHandler<AddItemIntoBasketCommand, AddItemIntoBasketResult>
 {
     public async Task<AddItemIntoBasketResult> Handle(AddItemIntoBasketCommand command, CancellationToken
@@ -29,12 +32,15 @@ public class AddItemIntoBasketHandler(IBasketRepository basketRepository)
     {
         var shoppingCart = await basketRepository.GetBasketAsync(command.UserName, false, cancellationToken);
 
+        var productResult = await sender.Send(new GetProductByIdQuery(command.ShoppingCartItem.ProductId),
+            cancellationToken);
+
         shoppingCart.AddItem(
             command.ShoppingCartItem.ProductId,
             command.ShoppingCartItem.Quantity,
             command.ShoppingCartItem.Color,
-            command.ShoppingCartItem.Price,
-            command.ShoppingCartItem.ProductName);
+            productResult.Product.Price,
+            productResult.Product.Name);
 
         await basketRepository.SaveChangesAsync(command.UserName, cancellationToken);
 

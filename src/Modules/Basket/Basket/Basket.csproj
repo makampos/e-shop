@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Kernel\Kernel\Kernel.csproj" />
+      <ProjectReference Include="..\..\Catalog\Catalog.Contracts\Catalog.Contracts.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,5 +1,5 @@
 using FluentValidation;
-using Kernel.CQRS;
+using Kernel.Contracts.CQRS;
 using MediatR;
 
 namespace Kernel.Behaviours;
