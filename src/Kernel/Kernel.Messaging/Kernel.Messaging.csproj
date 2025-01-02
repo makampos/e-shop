@@ -7,8 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Kernel\Kernel.Messaging\Kernel.Messaging.csproj" />
-        <ProjectReference Include="..\..\..\Kernel\Kernel\Kernel.csproj" />
-        <ProjectReference Include="..\Catalog.Contracts\Catalog.Contracts.csproj" />
+      <PackageReference Include="MassTransit" Version="8.3.4" />
     </ItemGroup>
+
 </Project>

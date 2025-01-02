@@ -7,15 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Kernel\Kernel.Messaging\Kernel.Messaging.csproj" />
       <ProjectReference Include="..\..\..\Kernel\Kernel\Kernel.csproj" />
       <ProjectReference Include="..\..\Catalog\Catalog.Contracts\Catalog.Contracts.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Basket\EventHandlers\" />
       <Folder Include="Basket\Features\CheckoutBasket\" />
       <Folder Include="Basket\Features\SubtractExistingItemQuantityFromBasket\" />
-      <Folder Include="Basket\Features\UpdateItemPriceInBasket\" />
     </ItemGroup>
 
 </Project>

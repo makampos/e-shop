@@ -6,3 +6,4 @@ global using Kernel.Extensions;
 global using Kernel.Exceptions.Handlers;
 global using Serilog;
 global using FluentValidation;
+global using Kernel.Messaging.Extensions;

@@ -21,3 +21,4 @@ global using Catalog.Products.Exceptions;
 global using Kernel.Pagination;
 global using Catalog.Contracts.Products.Dtos;
 global using Catalog.Contracts.Products.Features.GetProductById;
+global using MassTransit;
