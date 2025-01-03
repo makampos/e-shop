@@ -1,13 +1,14 @@
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using Basket.Data.JsonConverters;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Logging;
 
 namespace Basket.Data.Repository;
 
 // CachedBasketRepository act as a proxy + Decorator
 //TODO: Add logs
-public class CachedBasketRepository(IBasketRepository repository, IDistributedCache cache) : IBasketRepository
+public class CachedBasketRepository(IBasketRepository repository, IDistributedCache cache,
+    ILogger<CachedBasketRepository> logger) : IBasketRepository
 {
     private readonly JsonSerializerOptions _options = new()
     {
@@ -27,6 +28,7 @@ public class CachedBasketRepository(IBasketRepository repository, IDistributedCa
 
         if (!string.IsNullOrEmpty(cachedBasket))
         {
+            logger.LogInformation("Data retrieved from cache: {CachedBasket}", cachedBasket);
             return JsonSerializer.Deserialize<ShoppingCart>(cachedBasket, _options)!;
         }
 
