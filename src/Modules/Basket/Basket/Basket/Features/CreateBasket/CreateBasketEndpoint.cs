@@ -9,16 +9,18 @@ public class CreateBasketEndpoint : ICarterModule
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapPost("/basket", async (CreateBasketRequest request, ISender sender
-            , ClaimsPrincipal user) =>
+                , ClaimsPrincipal user) =>
             {
                 var userName = user.Identity!.Name;
 
                 var updatedShoppingCart = request.ShoppingCart with { UserName = userName };
-                var command = new CreateBasketRequest(updatedShoppingCart);
+                var newRequest = new CreateBasketRequest(updatedShoppingCart);
+                var command = newRequest.Adapt<CreateBasketCommand>();
                 var result = await sender.Send(command);
                 var response = result.Adapt<CreateBasketResponse>();
                 return Results.Created($"/basket/{response.Id}", response);
             })
+            .WithName("Create Basket")
             .Produces<CreateBasketResponse>(StatusCodes.Status201Created)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .WithSummary("Create Basket")
