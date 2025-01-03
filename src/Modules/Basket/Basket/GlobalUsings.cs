@@ -17,5 +17,7 @@ global using Microsoft.AspNetCore.Mvc;
 global using Basket.Data.Repository;
 global using MassTransit;
 global using System.Security.Claims;
+global using System.Text.Json;
+global using Kernel.Messaging.Events;
 
 

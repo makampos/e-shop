@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\Kernel\Kernel.Messaging\Kernel.Messaging.csproj" />
         <ProjectReference Include="..\..\..\Kernel\Kernel\Kernel.csproj" />
     </ItemGroup>
 
