@@ -16,5 +16,6 @@ global using Microsoft.AspNetCore.Routing;
 global using Microsoft.AspNetCore.Mvc;
 global using Basket.Data.Repository;
 global using MassTransit;
+global using System.Security.Claims;
 
 

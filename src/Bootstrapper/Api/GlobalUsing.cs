@@ -7,3 +7,4 @@ global using Kernel.Exceptions.Handlers;
 global using Serilog;
 global using FluentValidation;
 global using Kernel.Messaging.Extensions;
+global using Keycloak.AuthServices.Authentication;
