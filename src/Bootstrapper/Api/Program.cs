@@ -7,22 +7,24 @@ builder.Host.UseSerilog((context, config) =>
 //common services: carter, mediatr, fluentValidation
 var catalogAssembly = typeof(CatalogModule).Assembly;
 var basketAssembly = typeof(BasketModule).Assembly;
+var orderingAssembly = typeof(OrderingModule).Assembly;
 
 builder.Services
     .AddCarterWithAssemblies(
         catalogAssembly,
-        basketAssembly);
+        basketAssembly,
+        orderingAssembly);
 
-builder.Services.AddMediatRWithAssemblies(catalogAssembly, basketAssembly);
+builder.Services.AddMediatRWithAssemblies(catalogAssembly, basketAssembly, orderingAssembly);
 
-builder.Services.AddValidatorsFromAssemblies([catalogAssembly, basketAssembly]);
+builder.Services.AddValidatorsFromAssemblies([catalogAssembly, basketAssembly, orderingAssembly]);
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString("Redis");
 });
 
-builder.Services.AddMassTransitWithAssemblies(builder.Configuration, [catalogAssembly, basketAssembly]);
+builder.Services.AddMassTransitWithAssemblies(builder.Configuration, [catalogAssembly, basketAssembly, orderingAssembly]);
 
 builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
 builder.Services.AddAuthorization();
@@ -31,7 +33,7 @@ builder.Services.AddAuthorization();
 builder.Services
     .AddCatalogModule(builder.Configuration)
     .AddBasketModule(builder.Configuration)
-    .AddCatalogModule(builder.Configuration);
+    .AddOrderingModule(builder.Configuration);
 
 // Register custom exception handler into the DI
 builder.Services

@@ -10,4 +10,8 @@
         <ProjectReference Include="..\..\..\Kernel\Kernel\Kernel.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Data\Migrations\" />
+    </ItemGroup>
+
 </Project>

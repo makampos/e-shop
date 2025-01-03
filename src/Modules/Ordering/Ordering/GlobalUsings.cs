@@ -1,0 +1,17 @@
+global using Ordering.Orders.Models;
+global using Ordering.Orders.ValueObjects;
+global using Ordering.Orders.Events;
+global using Microsoft.Extensions.Logging;
+global using MediatR;
+global using FluentValidation;
+global using Kernel.Contracts.CQRS;
+global using Ordering.Data;
+global using Ordering.Orders.Dtos;
+global using Ordering.Orders.Exceptions;
+global using Mapster;
+global using Microsoft.EntityFrameworkCore;
+global using Kernel.Pagination;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Routing;
+global using Carter;
