@@ -1,0 +1,5 @@
+using Kernel.DDD;
+
+namespace Ordering.Orders.Events;
+
+public record OrderCreatedEvent(Order Order) : IDomainEvent;
