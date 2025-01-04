@@ -14,6 +14,11 @@
   identity:
     image: quay.io/keycloak/keycloak:24.0.3
 
+  api:
+    image: api
+    build:
+      context: .
+      dockerfile: Bootstrapper/Api/Dockerfile
+
 volumes:
   postgres_eshopdb:
-
