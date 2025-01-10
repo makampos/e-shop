@@ -30,7 +30,21 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
             AddDbContext<CatalogDbContext>(services);
             AddDbContext<BasketDbContext>(services);
             AddDbContext<OrderingDbContext>(services);
+
+            using (var scope = services.BuildServiceProvider().CreateScope())
+            {
+                var catalogDbContext = scope.ServiceProvider.GetRequiredService<CatalogDbContext>();
+                catalogDbContext.Database.Migrate();
+
+                var basketDbContext = scope.ServiceProvider.GetRequiredService<BasketDbContext>();
+                basketDbContext.Database.Migrate();
+
+                var orderingDbContext = scope.ServiceProvider.GetRequiredService<OrderingDbContext>();
+                orderingDbContext.Database.Migrate();
+            }
         });
+
+
     }
 
     public async Task InitializeAsync()
@@ -47,7 +61,9 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
     {
         foreach (var dbContextType in dbContextTypes)
         {
-            var descriptors = services.Where(s => s.ServiceType == dbContextType);
+            var descriptors = services
+                .Where(s => s.ServiceType == dbContextType)
+                .ToList();
             foreach (var descriptor in descriptors)
             {
                 services.Remove(descriptor);
